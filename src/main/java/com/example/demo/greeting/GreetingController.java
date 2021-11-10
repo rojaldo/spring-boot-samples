@@ -1,6 +1,6 @@
 // package demo.src.main.java.com.example.demo;
 
-package com.example.demo;
+package com.example.demo.greeting;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

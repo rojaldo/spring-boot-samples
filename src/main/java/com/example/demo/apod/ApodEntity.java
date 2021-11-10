@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.apod;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Apod {
+public class ApodEntity {
 
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
@@ -17,26 +17,24 @@ public class Apod {
   
   @Column(columnDefinition = "LONGTEXT")
   private String explanation;
-  
+
   private String url;
   private String date;
-  private String copyright;
   private String mediaType;
 
-  protected Apod() {}
+  protected ApodEntity() {}
 
-  public Apod(String title, String explanation, String url, String date, String mediaType) {
+  public ApodEntity(String title, String explanation, String date, String mediaType, String url) {
     this.title = title;
     this.explanation = explanation;
     this.url = url;
     this.date = date;
-    this.copyright = copyright;
     this.mediaType = mediaType;
   }
   
   @Override
   public String toString() {
-    return "Apod [id=" + id + ", title=" + title + ", explanation=" + explanation + ", url=" + url + ", date=" + date + ", copyright=" + copyright + ", mediaType=" + mediaType + "]";
+    return "Apod [id=" + id + ", title=" + title + ", explanation=" + explanation + ", url=" + url + ", date=" + date + ", mediaType=" + mediaType + "]";
   }
 
   public Long getId() {

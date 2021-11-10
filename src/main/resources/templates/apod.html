@@ -13,9 +13,28 @@
 </head>
 
 <body>
-    <p th:text="${apod}" />
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!--  -->
+    <div class="container">
+
+        <div th:each="apod: ${apodArray}">
+            <div class="jumbotron">
+                <h1 class="display-3" th:text="${{apod.title}}"></h1>
+                <p class="lead" th:text="${{apod.date}}"></p>
+                <td th:switch="${apod.mediaType}">
+                    <img th:case="'image'" th:src="${{apod.url}}"  alt="" class="d-block mx-auto">
+                    <iframe th:case="'video'" width="560" height="315" th:src="${{apod.url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </td>
+                <hr class="my-2">
+                <p th:text="${{apod.explanation}}"></p>
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="Jumbo action link" role="button">Jumbo action name</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <!--  -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
