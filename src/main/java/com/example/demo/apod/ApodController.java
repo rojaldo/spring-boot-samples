@@ -10,19 +10,15 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class ApodController {
 
-    @Autowired
-    private RestTemplate restTemplate;
 
     @Autowired
-    private ApodRepository repository;
+    private ApodService apodService;
 
     @GetMapping("/apod")
-    public String greeting(@RequestParam(name = "date", required = false, defaultValue = "World") String name,
+    public String greeting(@RequestParam(name = "date", required = false, defaultValue = "") String date,
             Model model) {
-        ApodResponse apod = restTemplate.getForObject("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY", ApodResponse.class);
-        ApodEntity myApod = new ApodEntity(apod.getTitle(), apod.getExplanation(), apod.getDate(), apod.getMediaType(), apod.getUrl());
-        this.repository.save(myApod);
-        model.addAttribute("apodArray", repository.findAll());
+        
+        model.addAttribute("apodArray", apodService.getApodData(date));
 
         return "apod";
     }
