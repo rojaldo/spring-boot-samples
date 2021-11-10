@@ -1,7 +1,5 @@
 package com.example.demo;
 
-import com.example.demo.apod.ApodEntity;
-import com.example.demo.apod.ApodRepository;
 import com.example.demo.customer.Customer;
 import com.example.demo.customer.CustomerRepository;
 

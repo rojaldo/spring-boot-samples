@@ -57,10 +57,6 @@ public class ApodEntity {
     return date;
   }
 
-  public String getCopyright() {
-    return copyright;
-  }
-
   public String getMediaType() {
     return mediaType;
   }
