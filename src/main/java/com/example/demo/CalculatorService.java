@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import org.springframework.stereotype.Service;
+
 enum State {
     INIT,
     FIRST_FIGURE,
@@ -8,14 +10,46 @@ enum State {
     ERROR
 }
 
-public class CalculatorEngine {
+@Service
+public class CalculatorService {
     State currentState = State.INIT;
     int firstFigure = 0;
     int secondFigure = 0;
     float result = 0.0f;
     char operation = ' ';
 
-    CalculatorEngine() {
+    CalculatorService() {
+    }
+
+    public String getFirstFigureString() {
+        return String.valueOf(firstFigure);
+    }
+
+    public String getSecondFigureString() {
+        return String.valueOf(secondFigure);
+    }
+
+    public String getResultString() {
+        return String.valueOf(result);
+    }
+
+    public String getOperationString() {
+        return String.valueOf(operation);
+    }
+
+    public boolean process(String operation) {
+        for (int i = 0; i < operation.length(); i++) {
+            if (Character.isDigit(operation.charAt(i))) {
+                this.handleNumber(operation.charAt(i));
+            } else {
+                this.handleSymbol(operation.charAt(i));
+            }
+        }
+        if(this.currentState == State.SECOND_FIGURE) {
+            this.result = this.calculate();
+            return true;
+        }
+        return false;
     }
 
     public void handleNumber(int number) {

@@ -13,7 +13,7 @@
     <div class="container">
         <ul class="list-group" th:each="customer: ${customers}">
             <li class="list-group-item" th:text="${customer.getId() + '.- ' + customer.getFirstName() + ' ' + customer.getLastName()}"></li>
-        </ul>                
+        </ul>             
     </div>
 <!--  -->
 
