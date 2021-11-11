@@ -37,9 +37,7 @@ public class CustomerController {
             model.addAttribute("emailExist", "Email already exist");
             return "customers";
         }
-
-
-
+        
         repository
                 .save(new CustomerEntity(customerForm.getName(), customerForm.getLastName(), customerForm.getEmail()));
         return "redirect:/customers";
