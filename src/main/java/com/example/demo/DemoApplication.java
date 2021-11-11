@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.customer.Customer;
+import com.example.demo.customer.CustomerEntity;
 import com.example.demo.customer.CustomerRepository;
 
 import org.slf4j.Logger;
@@ -24,14 +24,14 @@ public class DemoApplication {
 	public CommandLineRunner demo(CustomerRepository repository) {
 		return (args) -> {
 			// save a few customers
-			repository.save(new Customer("Jack", "Bauer"));
-			repository.save(new Customer("Chloe", "O'Brian"));
-			repository.save(new Customer("Kim", "Bauer"));
-			repository.save(new Customer("David", "Palmer"));
-			repository.save(new Customer("Michelle", "Dessler"));
+			repository.save(new CustomerEntity("Jack", "Bauer", "uno@cualquiera.com"));
+			repository.save(new CustomerEntity("Chloe", "O'Brian", "dos@cualquiera.com")); 
+			repository.save(new CustomerEntity("Kim", "Bauer", "tres@cualquiera.com"));
+			repository.save(new CustomerEntity("David", "Palmer", "cuatro@cualquiera.com"));
+			repository.save(new CustomerEntity("Michelle", "Dessler", "cinco@cualquiera.com"));
 
 			// fetch all customers
-			for (Customer customer : repository.findAll()) {
+			for (CustomerEntity customer : repository.findAll()) {
 				log.info(customer.toString());
 			}
 			repository.findByLastName("Bauer").forEach(bauer -> {

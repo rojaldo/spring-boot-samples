@@ -6,19 +6,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Customer {
+public class CustomerEntity {
 
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
   private Long id;
   private String firstName;
   private String lastName;
+  private String email;
 
-  protected Customer() {}
+  protected CustomerEntity() {}
 
-  public Customer(String firstName, String lastName) {
+  public CustomerEntity(String firstName, String lastName, String email) {
     this.firstName = firstName;
     this.lastName = lastName;
+    this.email = email;
   }
   
   @Override
@@ -39,5 +41,14 @@ public class Customer {
   public String getLastName() {
     return lastName;
   }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
 }
 
