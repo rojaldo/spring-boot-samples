@@ -25,13 +25,8 @@ public class BookLibraryEntity {
 
     @ManyToOne()
     @JsonBackReference
-    @JoinColumn(name = "LibraryUserEntity_id")
+    @JoinColumn(name = "UserLibraryEntity_id")
     private UserLibraryEntity user;
-
-    @ManyToOne()
-    @JsonBackReference
-    @JoinColumn(name = "LibraryEntity_id")
-    private LibraryEntity library;
 
     public BookLibraryEntity() {
     }
@@ -91,13 +86,6 @@ public class BookLibraryEntity {
         this.user = user;
     }
 
-    public LibraryEntity getLibrary() {
-        return library;
-    }
-
-    public void setLibrary(LibraryEntity library) {
-        this.library = library;
-    }
 
     public boolean isAvailable() {
         return user == null;
@@ -106,6 +94,6 @@ public class BookLibraryEntity {
     @Override
     public String toString() {
         return "LibraryBookEntity [id=" + id + ", title=" + title + ", author=" + author + ", isbn=" + isbn
-                + ", description=" + description + ", user=" + user + ", library=" + library + "]";
+                + ", description=" + description + ", user=" + user + "]";
     }
 }

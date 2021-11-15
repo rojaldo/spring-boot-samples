@@ -49,8 +49,8 @@ public class BookLibraryRestController {
 
     @PostMapping("")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public BookLibraryEntity createCustomer(@RequestBody BookLibraryEntity customer) {
-        return repository.save(customer);
+    public BookLibraryEntity createBook(@RequestBody BookLibraryEntity book) {
+        return repository.save(book);
     }
 
     @PutMapping("/{id}")
