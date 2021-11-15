@@ -17,39 +17,39 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/library/users")
-public class LibraryUserRestController {
+public class UserLibraryRestController {
 
     @Autowired
-    private LibraryUserRepository userRepository;
+    private UserLibraryRepository userRepository;
 
     @Autowired
-    private LibraryBookRepository bookRepository;
+    private BookLibraryRepository bookRepository;
 
 
     @GetMapping("")
-    public Iterable<LibraryUserEntity> getAllCustomers() {
+    public Iterable<UserLibraryEntity> getAllCustomers() {
         return userRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<LibraryUserEntity> getCustomerById(@PathVariable Long id) {
+    public ResponseEntity<UserLibraryEntity> getCustomerById(@PathVariable Long id) {
         try {
-            return new ResponseEntity<LibraryUserEntity>(userRepository.findById(id).get(), HttpStatus.OK);
+            return new ResponseEntity<UserLibraryEntity>(userRepository.findById(id).get(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<LibraryUserEntity>(new LibraryUserEntity(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<UserLibraryEntity>(new UserLibraryEntity(), HttpStatus.NOT_FOUND);
         }
 
     }
 
     @PostMapping("")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public LibraryUserEntity createCustomer(@RequestBody LibraryUserEntity customer) {
+    public UserLibraryEntity createCustomer(@RequestBody UserLibraryEntity customer) {
         return userRepository.save(customer);
     }
 
     @PutMapping("/{id}")
-    public LibraryUserEntity updateCustomer(@PathVariable Long id, @RequestBody LibraryUserEntity user) {
-        LibraryUserEntity userToUpdate = userRepository.findById(id).get();
+    public UserLibraryEntity updateCustomer(@PathVariable Long id, @RequestBody UserLibraryEntity user) {
+        UserLibraryEntity userToUpdate = userRepository.findById(id).get();
         userToUpdate.setName(user.getName());
         userToUpdate.setLastName(user.getLastName());
         userToUpdate.setEmail(user.getEmail());
@@ -67,24 +67,24 @@ public class LibraryUserRestController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<LibraryUserEntity> patchCustomer(@PathVariable Long id, 
+    public ResponseEntity<UserLibraryEntity> patchCustomer(@PathVariable Long id, 
             @RequestParam(name = "book_id", required = true, defaultValue = "") String bookId) {
-        LibraryUserEntity userToUpdate = userRepository.findById(id).get();
+        UserLibraryEntity userToUpdate = userRepository.findById(id).get();
         System.out.println("BOOOK_ID: " + bookId);
         if (bookId != null && !bookId.isEmpty()) {
             try {
-                LibraryBookEntity book = bookRepository.findById(Long.parseLong(bookId));
+                BookLibraryEntity book = bookRepository.findById(Long.parseLong(bookId));
                 userToUpdate.addBook(book);
                 book.setUser(userToUpdate);
                 bookRepository.save(book);
             } catch (Exception e) {
                 System.out.println("Book not found");
-                return new ResponseEntity<LibraryUserEntity>(new LibraryUserEntity(), HttpStatus.NOT_FOUND);
+                return new ResponseEntity<UserLibraryEntity>(new UserLibraryEntity(), HttpStatus.NOT_FOUND);
             }
           
         }
 
         System.out.println("USER_TO_UPDATE: " + userToUpdate);
-        return new ResponseEntity<LibraryUserEntity>(userToUpdate, HttpStatus.ACCEPTED);
+        return new ResponseEntity<UserLibraryEntity>(userToUpdate, HttpStatus.ACCEPTED);
     }
 }

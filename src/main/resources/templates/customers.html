@@ -49,26 +49,7 @@
 
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-            <!-- <table>
-            <tr>
-                <td>Name:</td>
-                <td><input type="text" th:field="*{name}" /></td>
-                <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
-            </tr>
-            <tr>
-                <td>Last Name:</td>
-                <td><input type="text" th:field="*{lastName}" /></td>
-                <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</td>
-            </tr>
-            <tr>
-                <td>Email:</td>
-                <td><input type="text" th:field="*{email}" /></td>
-            </tr>
 
-            <tr>
-                <td><button type="submit">Submit</button></td>
-            </tr>
-        </table> -->
         </form>
         <ul class="list-group" th:each="customer: ${customers}">
             <li class="list-group-item"

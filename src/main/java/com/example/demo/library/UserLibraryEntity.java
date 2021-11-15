@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
-public class LibraryUserEntity {
+public class UserLibraryEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
@@ -28,17 +28,17 @@ public class LibraryUserEntity {
         cascade = CascadeType.ALL, 
         fetch = javax.persistence.FetchType.EAGER,
         orphanRemoval = true)
-            private List<LibraryBookEntity> books;
+            private List<BookLibraryEntity> books;
     
-    public LibraryUserEntity() {
-        this.books = new java.util.ArrayList<LibraryBookEntity>();
+    public UserLibraryEntity() {
+        this.books = new java.util.ArrayList<BookLibraryEntity>();
     }
 
-    public LibraryUserEntity(String name, String lastName, String email) {
+    public UserLibraryEntity(String name, String lastName, String email) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-        this.books = new java.util.ArrayList<LibraryBookEntity>();
+        this.books = new java.util.ArrayList<BookLibraryEntity>();
     }
 
     public Long getId() {
@@ -73,15 +73,15 @@ public class LibraryUserEntity {
         this.email = email;
     }
 
-    public List<LibraryBookEntity> getBooks() {
+    public List<BookLibraryEntity> getBooks() {
         return books;
     }
 
-    public void setBooks(List<LibraryBookEntity> books) {
+    public void setBooks(List<BookLibraryEntity> books) {
         this.books = books;
     }
 
-    public void addBook(LibraryBookEntity book) {
+    public void addBook(BookLibraryEntity book) {
         this.books.add(book);
     }
 

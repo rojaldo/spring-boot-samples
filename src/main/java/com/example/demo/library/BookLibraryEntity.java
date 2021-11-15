@@ -9,30 +9,34 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class LibraryBookEntity {
+public class BookLibraryEntity {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String title;
     private String author;
     private String isbn;
-    
+
     @Column(columnDefinition = "LONGTEXT")
     private String description;
 
     @ManyToOne()
     @JsonBackReference
     @JoinColumn(name = "LibraryUserEntity_id")
-    private LibraryUserEntity user;
+    private UserLibraryEntity user;
 
-    public LibraryBookEntity() {
+    @ManyToOne()
+    @JsonBackReference
+    @JoinColumn(name = "LibraryEntity_id")
+    private LibraryEntity library;
+
+    public BookLibraryEntity() {
     }
 
-    public LibraryBookEntity(String title, String author, String isbn, String description) {
+    public BookLibraryEntity(String title, String author, String isbn, String description) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
@@ -79,12 +83,20 @@ public class LibraryBookEntity {
         this.description = description;
     }
 
-    public LibraryUserEntity getUser() {
+    public UserLibraryEntity getUser() {
         return user;
     }
 
-    public void setUser(LibraryUserEntity user) {
+    public void setUser(UserLibraryEntity user) {
         this.user = user;
+    }
+
+    public LibraryEntity getLibrary() {
+        return library;
+    }
+
+    public void setLibrary(LibraryEntity library) {
+        this.library = library;
     }
 
     public boolean isAvailable() {
@@ -93,12 +105,7 @@ public class LibraryBookEntity {
 
     @Override
     public String toString() {
-        return "BookEntity{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        return "LibraryBookEntity [id=" + id + ", title=" + title + ", author=" + author + ", isbn=" + isbn
+                + ", description=" + description + ", user=" + user + ", library=" + library + "]";
     }
 }

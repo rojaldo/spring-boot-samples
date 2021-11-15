@@ -1,15 +1,15 @@
 package com.example.demo.library;
 
-public class LibraryBookResponse {
+public class BookLibraryResponse {
     private String title;
     private String author;
     private String isbn;
     private boolean available;
 
-    public LibraryBookResponse() {
+    public BookLibraryResponse() {
     }
 
-    public LibraryBookResponse(String title, String author, String isbn, boolean available) {
+    public BookLibraryResponse(String title, String author, String isbn, boolean available) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;

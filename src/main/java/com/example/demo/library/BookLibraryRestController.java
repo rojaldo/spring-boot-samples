@@ -20,42 +20,42 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/library/books")
-public class LibraryBookRestController {
+public class BookLibraryRestController {
     
     @Autowired
-    private LibraryBookRepository repository;
+    private BookLibraryRepository repository;
 
     @GetMapping("")
-    public Iterable<LibraryBookResponse> getAllCustomers() {
+    public Iterable<BookLibraryResponse> getAllCustomers() {
 
         StreamSupport.stream(repository.findAll().spliterator(), false);
 
-        List<LibraryBookResponse> response = StreamSupport.stream(repository.findAll().spliterator(), false)
-                .map(book -> new LibraryBookResponse(book.getTitle(), book.getAuthor(), book.getIsbn(), book.isAvailable()))
+        List<BookLibraryResponse> response = StreamSupport.stream(repository.findAll().spliterator(), false)
+                .map(book -> new BookLibraryResponse(book.getTitle(), book.getAuthor(), book.getIsbn(), book.isAvailable()))
                 .collect(Collectors.toList());
                 
         return response;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<LibraryBookResponse> getCustomerById(@PathVariable Long id) {
+    public ResponseEntity<BookLibraryResponse> getCustomerById(@PathVariable Long id) {
         try {
-            LibraryBookEntity book = repository.findById(id).get();
-            return new ResponseEntity<>(new LibraryBookResponse(book.getTitle(), book.getAuthor(), book.getIsbn(), book.isAvailable()), HttpStatus.OK);
+            BookLibraryEntity book = repository.findById(id).get();
+            return new ResponseEntity<>(new BookLibraryResponse(book.getTitle(), book.getAuthor(), book.getIsbn(), book.isAvailable()), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<LibraryBookResponse>(new LibraryBookResponse(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<BookLibraryResponse>(new BookLibraryResponse(), HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping("")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public LibraryBookEntity createCustomer(@RequestBody LibraryBookEntity customer) {
+    public BookLibraryEntity createCustomer(@RequestBody BookLibraryEntity customer) {
         return repository.save(customer);
     }
 
     @PutMapping("/{id}")
-    public LibraryBookEntity updateCustomer(@PathVariable Long id, @RequestBody LibraryBookEntity book) {
-        LibraryBookEntity bookToUpdate = repository.findById(id).get();
+    public BookLibraryEntity updateCustomer(@PathVariable Long id, @RequestBody BookLibraryEntity book) {
+        BookLibraryEntity bookToUpdate = repository.findById(id).get();
         bookToUpdate.setTitle(book.getTitle());
         bookToUpdate.setAuthor(book.getAuthor());
         bookToUpdate.setIsbn(book.getIsbn());
@@ -75,8 +75,8 @@ public class LibraryBookRestController {
     }
 
     @PatchMapping("/{id}")
-    public LibraryBookEntity patchCustomer(@PathVariable Long id, @RequestBody LibraryBookEntity book) {
-        LibraryBookEntity bookToUpdate = repository.findById(id).get();
+    public BookLibraryEntity patchCustomer(@PathVariable Long id, @RequestBody BookLibraryEntity book) {
+        BookLibraryEntity bookToUpdate = repository.findById(id).get();
         if(book.getTitle() != null) {
             bookToUpdate.setTitle(book.getTitle());
         }
