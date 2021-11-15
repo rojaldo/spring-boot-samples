@@ -1,0 +1,171 @@
+openapi: 3.0.1
+info:
+  title: Library
+  description: 'This is a sample server Library server.  You can find out more about
+    Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For
+    this sample, you can use the api key `special-key` to test the authorization filters.'
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.5
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+- url: http://localhost:8080/api/v1
+- url: https://localhost:8080/api/v1
+tags:
+- name: books
+  description: Everything about your Books
+  externalDocs:
+    description: Find out more
+    url: http://swagger.io
+- name: users
+  description: Everything about your Users
+  externalDocs:
+    description: Find out more
+    url: http://swagger.io
+paths:
+  /library/books:
+    get:
+      tags:
+      - books
+      summary: Find all books
+      description: Returns book list
+      operationId: getBooks
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookArray'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/BookArray'
+    post:
+      tags:
+      - books
+      summary: Save a new book to the list
+      description: this is a description
+      operationId: addBook
+      requestBody:
+        description: book object that needs to be added to the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewBook'
+        required: true
+      responses:
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+      x-codegen-request-body-name: book
+  /books/{bookID}:
+    get:
+      tags:
+      - books
+      summary: Find a books by Id
+      description: Returns book list
+      operationId: getBookById
+      parameters:
+      - name: bookID
+        in: path
+        description: ID of book
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+    put:
+      tags:
+      - books
+      summary: Save or update a book by Id
+      description: Update description
+      operationId: updateBookById
+      parameters:
+      - name: bookID
+        in: path
+        description: ID of book
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Updated book object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewBook'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+      - books
+      summary: Delete a book
+      description: Delete description
+      operationId: deleteBookById
+      parameters:
+      - name: bookID
+        in: path
+        description: ID of book
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: removed element
+          content: {}
+components:
+  schemas:
+    NewBook:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Eloquent JavaScript, Second Edition
+        author:
+          type: string
+          example: Marijn Haverbeke
+        price:
+          type: number
+          example: 1000.0
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          example: Eloquent JavaScript, Second Edition
+        author:
+          type: string
+          example: Marijn Haverbeke
+        price:
+          type: number
+          example: 1000.0
+    BookArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Book'

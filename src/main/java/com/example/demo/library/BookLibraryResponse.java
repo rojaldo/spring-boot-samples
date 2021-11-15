@@ -16,6 +16,13 @@ public class BookLibraryResponse {
         this.available = available;
     }
 
+    public BookLibraryResponse(String title, String author, String isbn) {
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+        this.available = true;
+    }
+
     public String getTitle() {
         return title;
     }

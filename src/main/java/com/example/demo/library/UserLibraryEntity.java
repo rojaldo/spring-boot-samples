@@ -28,17 +28,17 @@ public class UserLibraryEntity {
         cascade = CascadeType.ALL, 
         fetch = javax.persistence.FetchType.EAGER,
         orphanRemoval = true)
-            private List<BookLibraryEntity> books;
+            private List<TransactionLibraryEntity> transactions;
     
     public UserLibraryEntity() {
-        this.books = new java.util.ArrayList<BookLibraryEntity>();
+        this.transactions = new java.util.ArrayList<TransactionLibraryEntity>();
     }
 
     public UserLibraryEntity(String name, String lastName, String email) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-        this.books = new java.util.ArrayList<BookLibraryEntity>();
+        this.transactions = new java.util.ArrayList<TransactionLibraryEntity>();
     }
 
     public Long getId() {
@@ -73,29 +73,37 @@ public class UserLibraryEntity {
         this.email = email;
     }
 
-    public List<BookLibraryEntity> getBooks() {
-        return books;
+    public List<TransactionLibraryEntity> getTransactions() {
+        return transactions;
     }
 
-    public void setBooks(List<BookLibraryEntity> books) {
-        this.books = books;
+    public void setTransactions(List<TransactionLibraryEntity> transactions) {
+        this.transactions = transactions;
     }
 
-    public void addBook(BookLibraryEntity book) {
-        this.books.add(book);
+    // public List<BookLibraryEntity> getBooks() {
+    //     return books;
+    // }
+
+    // public void setBooks(List<BookLibraryEntity> books) {
+    //     this.books = books;
+    // }
+
+    public void addBook(TransactionLibraryEntity book) {
+        this.transactions.add(book);
     }
 
     @Override
     public String toString() {
-        String myBooks = this.books.stream()
-            .map(book -> book.getTitle())
+        String myTransactions = this.transactions.stream()
+            .map(transaction -> transaction.toString())
             .reduce("", (acc, title) -> acc + title + ", ");
         return "LibraryUserEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", books=" + myBooks +
+                ", transactions=" + myTransactions +
                 '}';
 
     }

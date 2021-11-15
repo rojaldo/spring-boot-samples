@@ -31,7 +31,7 @@ public class BookLibraryRestController {
         StreamSupport.stream(repository.findAll().spliterator(), false);
 
         List<BookLibraryResponse> response = StreamSupport.stream(repository.findAll().spliterator(), false)
-                .map(book -> new BookLibraryResponse(book.getTitle(), book.getAuthor(), book.getIsbn(), book.isAvailable()))
+                .map(book -> new BookLibraryResponse(book.getTitle(), book.getAuthor(), book.getIsbn()))
                 .collect(Collectors.toList());
                 
         return response;
@@ -41,7 +41,7 @@ public class BookLibraryRestController {
     public ResponseEntity<BookLibraryResponse> getCustomerById(@PathVariable Long id) {
         try {
             BookLibraryEntity book = repository.findById(id).get();
-            return new ResponseEntity<>(new BookLibraryResponse(book.getTitle(), book.getAuthor(), book.getIsbn(), book.isAvailable()), HttpStatus.OK);
+            return new ResponseEntity<>(new BookLibraryResponse(book.getTitle(), book.getAuthor(), book.getIsbn()), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<BookLibraryResponse>(new BookLibraryResponse(), HttpStatus.NOT_FOUND);
         }

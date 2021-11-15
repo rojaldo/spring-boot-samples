@@ -1,14 +1,15 @@
 package com.example.demo.library;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class BookLibraryEntity {
@@ -23,12 +24,15 @@ public class BookLibraryEntity {
     @Column(columnDefinition = "LONGTEXT")
     private String description;
 
-    @ManyToOne()
-    @JsonBackReference
-    @JoinColumn(name = "UserLibraryEntity_id")
-    private UserLibraryEntity user;
+    @OneToMany(
+        mappedBy = "book", 
+        cascade = CascadeType.ALL, 
+        fetch = javax.persistence.FetchType.LAZY,
+        orphanRemoval = true)
+            private List<TransactionLibraryEntity> transactions;
 
     public BookLibraryEntity() {
+        this.transactions = new java.util.ArrayList<TransactionLibraryEntity>();
     }
 
     public BookLibraryEntity(String title, String author, String isbn, String description) {
@@ -36,6 +40,7 @@ public class BookLibraryEntity {
         this.author = author;
         this.isbn = isbn;
         this.description = description;
+        this.transactions = new java.util.ArrayList<TransactionLibraryEntity>();
     }
 
     public Long getId() {
@@ -78,22 +83,27 @@ public class BookLibraryEntity {
         this.description = description;
     }
 
-    public UserLibraryEntity getUser() {
-        return user;
+    public List<TransactionLibraryEntity> getTransactions() {
+        return transactions;
     }
 
-    public void setUser(UserLibraryEntity user) {
-        this.user = user;
-    }
-
-
-    public boolean isAvailable() {
-        return user == null;
+    public void setTransactions(List<TransactionLibraryEntity> transactions) {
+        this.transactions = transactions;
     }
 
     @Override
     public String toString() {
-        return "LibraryBookEntity [id=" + id + ", title=" + title + ", author=" + author + ", isbn=" + isbn
-                + ", description=" + description + ", user=" + user + "]";
+        String myTransactions = this.transactions.stream()
+        .map(transaction -> transaction.toString())
+        .reduce("", (acc, title) -> acc + title + ", ");
+
+        return  "BookLibraryEntity{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", description='" + description + '\'' +
+                ", transactions=" + myTransactions +
+                '}';
     }
 }

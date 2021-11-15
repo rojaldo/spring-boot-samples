@@ -74,8 +74,8 @@ public class UserLibraryRestController {
         if (bookId != null && !bookId.isEmpty()) {
             try {
                 BookLibraryEntity book = bookRepository.findById(Long.parseLong(bookId));
-                userToUpdate.addBook(book);
-                book.setUser(userToUpdate);
+                // userToUpdate.addBook(book);
+                // book.setUser(userToUpdate);
                 bookRepository.save(book);
             } catch (Exception e) {
                 System.out.println("Book not found");
