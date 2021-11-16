@@ -1,0 +1,478 @@
+openapi: 3.0.1
+info:
+  title: Beers
+  description: "API de Cervezas"
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.5
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:8080/api/v1
+  - url: https://localhost:8080/api/v1
+tags:
+  - name: beers
+    description: Everything about your beers
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: purchases
+    description: Everything about your purchases
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: pubs
+    description: Everything about your pubs
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+paths:
+  /beers:
+    get:
+      tags:
+        - beers
+      summary: Find all beers
+      description: Returns beer list
+      operationId: getBeers
+      parameters:
+        - name: abv_gt
+          in: query
+          description: abv greater than
+          required: false
+          schema:
+            type: number
+            format: float
+        - name: abv_lt
+          in: query
+          description: abv less than
+          required: false
+          schema:
+            type: number
+            format: float
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BeerArray"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/BeerArray"
+    post:
+      tags:
+        - beers
+      summary: Save a new beer to the list
+      description: this is a description
+      operationId: addBeer
+      requestBody:
+        description: beer object that needs to be added to the list
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewBeer"
+        required: true
+      responses:
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Beer"
+      x-codegen-request-body-name: beer
+  /beers/{beerId}:
+    get:
+      tags:
+        - beers
+      summary: Find a beer by Id
+      description: Return a beer
+      operationId: getBeerById
+      parameters:
+        - name: beerId
+          in: path
+          description: ID of beer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Beer"
+    put:
+      tags:
+        - beers
+      summary: Save or update a beer by Id
+      description: Update description
+      operationId: updateBeerById
+      parameters:
+        - name: BeerID
+          in: path
+          description: ID of beer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Updated beer object
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewBeer"
+        required: true
+      responses:
+        202:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Beer"
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+        - beers
+      summary: Delete a beer
+      description: Delete description
+      operationId: deleteBeerById
+      parameters:
+        - name: BeerID
+          in: path
+          description: ID of Beer
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        202:
+          description: removed element
+          content: {}
+  /pubs:
+    get:
+      tags:
+        - pubs
+      summary: Find all pubs
+      description: Returns pub list
+      operationId: getAllpubs
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PubArray"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/PubArray"
+    post:
+      tags:
+        - pubs
+      summary: Save a new pub to the list
+      description: this is a description
+      operationId: addpub
+      requestBody:
+        description: pub object that needs to be added to the list
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Pub"
+        required: true
+      responses:
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pub"
+      x-codegen-request-body-name: pub
+  /pubs/{pubID}:
+    get:
+      tags:
+        - pubs
+      summary: Find a pubs by Id
+      description: Returns pub list
+      operationId: getpubById
+      parameters:
+        - name: pubID
+          in: path
+          description: ID of pub
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pub"
+    put:
+      tags:
+        - pubs
+      summary: Save or update a pub by Id
+      description: Update description
+      operationId: updatepubById
+      parameters:
+        - name: pubID
+          in: path
+          description: ID of pub
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Updated pub object
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Pub"
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pub"
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+        - pubs
+      summary: Delete a pub
+      description: Delete description
+      operationId: deletepubById
+      parameters:
+        - name: pubID
+          in: path
+          description: ID of pub
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        202:
+          description: removed element
+          content: {}
+  /purchases:
+    get:
+      tags:
+        - purchases
+      summary: Find all purchases
+      description: Returns purchase list
+      operationId: getAllpurchases
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PurchaseArray"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/PurchaseArray"
+    post:
+      tags:
+        - purchases
+      summary: Save a new purchase to the list
+      description: this is a description
+      operationId: addpurchase
+      requestBody:
+        description: purchase object that needs to be added to the list
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Purchase"
+        required: true
+      responses:
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Purchase"
+      x-codegen-request-body-name: purchase
+  /purchases/{purchaseID}:
+    get:
+      tags:
+        - purchases
+      summary: Find a purchases by Id
+      description: Returns purchase list
+      operationId: getpurchaseById
+      parameters:
+        - name: purchaseID
+          in: path
+          description: ID of purchase
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Purchase"
+    put:
+      tags:
+        - purchases
+      summary: Save or update a purchase by Id
+      description: Update description
+      operationId: updatepurchaseById
+      parameters:
+        - name: purchaseID
+          in: path
+          description: ID of purchase
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Updated purchase object
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Purchase"
+        required: true
+      responses:
+        202:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Purchase"
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+        - purchases
+      summary: Delete a purchase
+      description: Delete description
+      operationId: deletepurchaseById
+      parameters:
+        - name: purchaseID
+          in: path
+          description: ID of purchase
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        202:
+          description: removed element
+          content: {}
+components:
+  schemas:
+    Beer:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          example: "Beer"
+        description:
+          type: string
+          example: "Beer description"
+        tagline:
+          type: string
+          example: "Beer tagline"
+        first_brewed:
+          type: string
+          example: "2018-01-01"
+        image_url:
+          type: string
+          example: "https://images.punkapi.com/v2/keg.png"
+        abv:
+          type: number
+          format: double
+          example: 4.5
+    NewBeer:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Beer"
+        description:
+          type: string
+          example: "Beer description"
+        tagline:
+          type: string
+          example: "Beer tagline"
+        first_brewed:
+          type: string
+          example: "2018-01-01"
+        image_url:
+          type: string
+          example: "https://images.punkapi.com/v2/keg.png"
+        abv:
+          type: number
+          format: double
+          example: 4.5
+    BeerArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/Beer"
+    Pub:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          example: "Pub"
+        location:
+          type: string
+          example: "Pub location"
+        phone:
+          type: string
+          example: "Pub phone"
+    NewPub:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          example: "Pub"
+        location:
+          type: string
+          example: "Pub location"
+        phone:
+          type: string
+          example: "Pub phone"
+    PubArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/Pub"
+    Purchase:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        amount:
+          type: number
+          format: double
+          example: 4.5
+        date:
+          type: string
+          example: "2018-01-01"
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Beer"
+    PurchaseArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/Purchase"
