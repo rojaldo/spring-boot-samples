@@ -1,0 +1,519 @@
+openapi: 3.0.1
+info:
+  title: Library
+  description:
+    "This is a sample server Library server.  You can find out more about
+    Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For
+    this sample, you can use the api key `special-key` to test the authorization filters."
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.5
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:8080/api/v1/library
+  - url: https://localhost:8080/api/v1/library
+tags:
+  - name: books
+    description: Everything about your books
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: users
+    description: Everything about your users
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: library
+    description: Everything about libraries.
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: transactions
+    description: Everything about transactions of the users.
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+paths:
+  /books:
+    get:
+      tags:
+        - books
+      summary: Find all books
+      description: Returns book list
+      operationId: getAllBooks
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookArray"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/BookArray"
+    post:
+      tags:
+        - books
+      summary: Save a new book to the list
+      description: this is a description
+      operationId: addBook
+      requestBody:
+        description: book object that needs to be added to the list
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookRequest"
+        required: true
+      responses:
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+      x-codegen-request-body-name: book
+  /books/{bookID}:
+    get:
+      tags:
+        - books
+      summary: Find a books by Id
+      description: Returns book list
+      operationId: getBookById
+      parameters:
+        - name: bookID
+          in: path
+          description: ID of book
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+    put:
+      tags:
+        - books
+      summary: Save or update a book by Id
+      description: Update description
+      operationId: updateBookById
+      parameters:
+        - name: bookID
+          in: path
+          description: ID of book
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Updated book object
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookRequest"
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+        - books
+      summary: Delete a book
+      description: Delete description
+      operationId: deleteBookById
+      parameters:
+        - name: bookID
+          in: path
+          description: ID of book
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        202:
+          description: removed element
+          content: {}
+  /users:
+    get:
+      tags:
+        - users
+      summary: Find all readers
+      description: Returns reader list
+      operationId: getAllReaders
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserArray"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/UserArray"
+    post:
+      tags:
+        - users
+      summary: Save a new book to the list
+      description: this is a description
+      operationId: addReader
+      requestBody:
+        description: reader object that needs to be added to the list
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRequest"
+        required: true
+      responses:
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+      x-codegen-request-body-name: reader
+  /users/{readerID}:
+    get:
+      tags:
+        - users
+      summary: Find a reader by Id
+      description: Returns reader
+      operationId: getReaderById
+      parameters:
+        - name: readerID
+          in: path
+          description: ID of reader
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+    put:
+      tags:
+        - users
+      summary: Save or update a reader by Id
+      description: Update description
+      operationId: updateReaderById
+      parameters:
+        - name: readerID
+          in: path
+          description: ID of reader
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Updated reader object
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookRequest"
+        required: true
+      responses:
+        202:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+        - users
+      summary: Delete a reader
+      description: Delete description
+      operationId: deleteReaderById
+      parameters:
+        - name: bookID
+          in: path
+          description: ID of book
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        202:
+          description: removed element
+          content: {}
+  /transactions:
+    get:
+      tags:
+        - transactions
+      summary: Find all transactions
+      description: Returns transactions list
+      operationId: getAllTransactions
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransactionArray"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/TransactionArray"
+    post:
+      tags:
+        - transactions
+      summary: Save a new transaction to the list
+      description: this is a description
+      operationId: addTransaction
+      requestBody:
+        description: reader object that needs to be added to the list
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TransactionRequest"
+        required: true
+      responses:
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transaction"
+      x-codegen-request-body-name: transaction
+  /transactions/{transactionID}:
+    get:
+      tags:
+        - transactions
+      summary: Find a transaction by Id
+      description: Returns transaction
+      operationId: getTransactionById
+      parameters:
+        - name: transactionID
+          in: path
+          description: ID of transaction
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transaction"
+    put:
+      tags:
+        - transactions
+      summary: Save or update a transaction by Id
+      description: Update description
+      operationId: updateTransactionById
+      parameters:
+        - name: transactionID
+          in: path
+          description: ID of transaction
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Updated transaction object
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TransactionRequest"
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transaction"
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+        - transactions
+      summary: Delete a transaction
+      description: Delete description
+      operationId: deleteTransactionById
+      parameters:
+        - name: transactionID
+          in: path
+          description: ID of transaction
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: removed element
+          content: {}
+components:
+  schemas:
+    BookRequest:
+      type: object
+      properties:
+        isbn:
+          type: string
+          example: "53453423432"
+        title:
+          type: string
+          example: "Libro 1"
+        author:
+          type: string
+          example: Marijn Haverbeke
+        description:
+          type: string
+          example: "Descripcion del libro"
+    Book:
+      type: object
+      properties:
+        isbn:
+          type: string
+          example: "53453423432"
+        title:
+          type: string
+          example: "Libro 1"
+        author:
+          type: string
+          example: Marijn Haverbeke
+        available:
+          type: boolean
+          example: true
+    BookArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/Book"
+    UserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Paco
+        lastName:
+          type: string
+          example: Martinez
+        email:
+          type: string
+          example: email@elmail.com
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          example: Paco
+        lastName:
+          type: string
+          example: Martinez
+        email:
+          type: string
+          example: email@elmail.com
+        transactions:
+          type: array
+          example: [{"id": "1", "transactionDate": "2021/11/15", "dueDate": "2021/12/15"}]
+    UserArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/User"
+    TransactionRequest:
+      type: object
+      properties:
+        transactionDate:
+          type: string
+          example: Paco
+        dueDate:
+          type: string
+          example: Martinez
+        status:
+          type: string
+          example: email@elmail.com
+        reader_id:
+          type: integer
+          format: int64
+        book_id:
+          type: string
+          format: int64
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        transactionDate:
+          type: string
+          example: Paco
+        dueDate:
+          type: string
+          example: Martinez
+        status:
+          type: string
+          example: email@elmail.com
+        books:
+          type: array
+          example: ["id": "1", "title": "Libro 1"]
+        readers:
+          type: array
+          example: ["id": "1", "fisrtName": "Paco"]
+    TransactionArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/Transaction"
+    LibraryRequest:
+      type: object
+      properties:
+        transactionDate:
+          type: string
+          example: Paco
+        dueDate:
+          type: string
+          example: Martinez
+        status:
+          type: string
+          example: email@elmail.com
+        reader_id:
+          type: integer
+          format: int64
+        book_id:
+          type: string
+          format: int64
+    Library:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          example: Paco
+        city:
+          type: string
+          example: Martinez
+        transactions:
+          type: array
+          example: ["id": "1", "title": "Libro 1"]
+        books:
+          type: array
+          example: ["id": "1", "title": "Libro 1"]
+        readers:
+          type: array
+          example: ["id": "1", "fisrtName": "Paco"]
+    LibraryArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/Transaction"
