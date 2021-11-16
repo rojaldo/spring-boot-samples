@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import com.example.demo.beers.BeerEntity;
+import com.example.demo.beers.BeerRepository;
+import com.example.demo.beers.BeersService;
 import com.example.demo.customer.CustomerEntity;
 import com.example.demo.customer.CustomerRepository;
 
@@ -43,6 +46,16 @@ public class DemoApplication {
 	@Bean
 	public RestTemplate getRestTemplate() {
 		return new RestTemplate();
+	}
+
+	@Bean
+	public CommandLineRunner addBeers(BeerRepository beerRepository, BeersService beersService) {
+		return (args) -> {
+			for(BeerEntity b :beersService.getAllBeersFromApi() ) {
+				beerRepository.save(b);
+			}
+					
+		};
 	}
 
 }

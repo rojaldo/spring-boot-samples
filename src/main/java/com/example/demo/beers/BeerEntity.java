@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 public class BeerEntity {
 
@@ -20,8 +22,10 @@ public class BeerEntity {
 
     private String tagline;
 
+    @JsonProperty("first_brewed")
     private String firstBrewed;
 
+    @JsonProperty("image_url")
     private String imageUrl;
 
     private double abv;
@@ -71,6 +75,10 @@ public class BeerEntity {
 
     public double getAbv() {
         return abv;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }
