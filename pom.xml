@@ -102,12 +102,7 @@
 				<configuration>
 				  <sources>
 					<source>${project.basedir}/src/main/resources/xsd/</source>
-					<!-- <source>/another/absolute/path/to/a/specification.xsd</source>
-					<source>a/directory/holding/xsds</source> -->
 				</sources>
-					<!-- <schemaDirectory>${project.basedir}/src/main/resources/xsd/</schemaDirectory>
-					<outputDirectory>${project.basedir}/src/main/java</outputDirectory>
-					<clearOutputDir>false</clearOutputDir> -->
 				</configuration>
 			</plugin>
 		</plugins>
