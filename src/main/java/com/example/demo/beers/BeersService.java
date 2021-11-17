@@ -58,18 +58,16 @@ public class BeersService {
 
 	}
 
-    public Iterable<BeerEntity> getFilteredBeers(String abvGt, String abvLt) {
+    public Iterable<BeerEntity> getFilteredBeers(String abvGt, String abvLt) throws Exception {
         if (abvGt.isEmpty() && abvLt.isEmpty()) {
             return repository.findAll();
         } else if (abvGt.isEmpty() && !abvLt.isEmpty()) {
             double abvLtDouble = Double.parseDouble(abvLt);
             return repository.findByAbvLessThan(abvLtDouble);
         } else if (!abvGt.isEmpty() && abvLt.isEmpty()) {
-            // string to double
             double abvGtDouble = Double.parseDouble(abvGt);
             return repository.findByAbvGreaterThan(abvGtDouble);
         } else if (!abvGt.isEmpty() && !abvLt.isEmpty()) {
-            // string to double
             double abvGtDouble = Double.parseDouble(abvGt);
             double abvLtDouble = Double.parseDouble(abvLt);
             return repository.findByAbvGreaterThanAndAbvLessThan(abvGtDouble, abvLtDouble);

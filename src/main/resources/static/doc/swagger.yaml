@@ -182,7 +182,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Pub"
+              $ref: "#/components/schemas/NewPub"
         required: true
       responses:
         201:
@@ -289,7 +289,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Purchase"
+              $ref: "#/components/schemas/NewPurchase"
         required: true
       responses:
         201:
@@ -439,9 +439,6 @@ components:
     NewPub:
       type: object
       properties:
-        id:
-          type: integer
-          format: int64
         name:
           type: string
           example: "Pub"
@@ -463,15 +460,46 @@ components:
           format: int64
         amount:
           type: number
+          format: int32
+          example: 4
+        price:
+          type: number
           format: double
-          example: 4.5
+          example: 5.8
         date:
           type: string
           example: "2018-01-01"
-        items:
-          type: array
-          items:
-            $ref: "#/components/schemas/Beer"
+        pub_id:
+          type: integer
+          format: int64
+          example: 31
+        beer_id:
+          type: integer
+          format: int64
+          example: 30
+    NewPurchase:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: int32
+          example: 4
+        price:
+          type: number
+          format: double
+          example: 5.8
+        date:
+          type: string
+          example: "2018-01-01"
+        pub_id:
+          type: integer
+          format: int64
+          example: 31
+        beer_id:
+          type: integer
+          format: int64
+          example: 30
+
     PurchaseArray:
       type: array
       items:

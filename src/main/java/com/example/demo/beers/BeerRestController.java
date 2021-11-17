@@ -28,7 +28,12 @@ public class BeerRestController {
             @RequestParam(name = "abv_gt", required = false, defaultValue = "") String abvGt,
             @RequestParam(name = "abv_lt", required = false, defaultValue = "") String abvLt) {
 
-        return service.getFilteredBeers(abvGt, abvLt);
+        try {
+            return service.getFilteredBeers(abvGt, abvLt);
+        } catch (Exception e) {
+            return repository.findAll();
+        }
+
     }
 
     @GetMapping("/{id}")

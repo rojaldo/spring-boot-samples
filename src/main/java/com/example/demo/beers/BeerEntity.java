@@ -1,11 +1,16 @@
 package com.example.demo.beers;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+import com.example.demo.purchase.PurchaseEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -29,6 +34,12 @@ public class BeerEntity {
     private String imageUrl;
 
     private double abv;
+
+    @OneToMany(mappedBy = "pub", 
+    cascade = CascadeType.ALL, 
+    fetch = javax.persistence.FetchType.LAZY,
+    orphanRemoval = true)
+    private List<PurchaseEntity> purchases;
 
     protected BeerEntity() {
     }
