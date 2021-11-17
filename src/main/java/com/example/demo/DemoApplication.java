@@ -12,7 +12,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
+import org.springframework.xml.xsd.XsdSchema;
+import org.springframework.xml.xsd.SimpleXsdSchema;
+
 
 @SpringBootApplication
 public class DemoApplication {
