@@ -11,6 +11,8 @@ import io.spring.guides.gs_producing_web_service.DeleteCustomerRequest;
 import io.spring.guides.gs_producing_web_service.DeleteCustomerResponse;
 import io.spring.guides.gs_producing_web_service.GetCustomerRequest;
 import io.spring.guides.gs_producing_web_service.GetCustomerResponse;
+import io.spring.guides.gs_producing_web_service.NewCustomerRequest;
+import io.spring.guides.gs_producing_web_service.NewCustomerResponse;
 
 @Endpoint
 public class CustomerSoapEndpoint {
@@ -51,6 +53,22 @@ public class CustomerSoapEndpoint {
             response.setId(-1L);
         }
 
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "newCustomerRequest")
+    @ResponsePayload
+    public NewCustomerResponse getCustomer(@RequestPayload NewCustomerRequest request) {
+        System.out.println("CustomerEndpoint.getCustomer()");
+        CustomerEntity ce = new CustomerEntity(request.getName(), request.getSurname(), request.getMail());
+        customerRepository.save(ce);
+        Customer customer = new Customer();
+        customer.setId(ce.getId());
+        customer.setFirstName(ce.getFirstName());
+        customer.setLastName(ce.getLastName());
+        customer.setEmail(ce.getEmail());
+        NewCustomerResponse response = new NewCustomerResponse();
+        response.setCustomer(customer);
         return response;
     }
 }

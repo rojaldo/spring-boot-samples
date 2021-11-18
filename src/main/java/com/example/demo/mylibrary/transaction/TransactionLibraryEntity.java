@@ -1,4 +1,4 @@
-package com.example.demo.library.transaction;
+package com.example.demo.mylibrary.transaction;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.example.demo.library.book.BookLibraryEntity;
-import com.example.demo.library.user.UserLibraryEntity;
+import com.example.demo.mylibrary.book.BookLibraryEntity;
+import com.example.demo.mylibrary.user.UserLibraryEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

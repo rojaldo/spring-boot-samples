@@ -1,4 +1,4 @@
-package com.example.demo.library.transaction;
+package com.example.demo.mylibrary.transaction;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

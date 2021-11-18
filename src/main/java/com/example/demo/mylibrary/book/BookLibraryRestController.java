@@ -1,4 +1,4 @@
-package com.example.demo.library.book;
+package com.example.demo.mylibrary.book;
 
 import java.util.List;
 import java.util.stream.Collectors;

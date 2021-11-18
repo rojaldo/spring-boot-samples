@@ -1,4 +1,4 @@
-package com.example.demo.library.book;
+package com.example.demo.mylibrary.book;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.example.demo.library.transaction.TransactionLibraryEntity;
+import com.example.demo.mylibrary.transaction.TransactionLibraryEntity;
 
 
 @Entity

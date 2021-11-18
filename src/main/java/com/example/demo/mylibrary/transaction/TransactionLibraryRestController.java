@@ -1,13 +1,13 @@
-package com.example.demo.library.transaction;
+package com.example.demo.mylibrary.transaction;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import com.example.demo.library.book.BookLibraryEntity;
-import com.example.demo.library.book.BookLibraryRepository;
-import com.example.demo.library.user.UserLibraryEntity;
-import com.example.demo.library.user.UserLibraryRepository;
+import com.example.demo.mylibrary.book.BookLibraryEntity;
+import com.example.demo.mylibrary.book.BookLibraryRepository;
+import com.example.demo.mylibrary.user.UserLibraryEntity;
+import com.example.demo.mylibrary.user.UserLibraryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,7 +61,8 @@ public class TransactionLibraryRestController {
     @ResponseStatus(value = HttpStatus.CREATED)
     public TransactionLibraryEntity createBook(@RequestBody TransactionLibraryRequest transaction) {
         try {
-            UserLibraryEntity user = this.userRepository.findById(Long.valueOf(transaction.getUserId())).get();
+
+            UserLibraryEntity user = this.userRepository.findById(Long.valueOf(transaction.getUserId())).get();            
             BookLibraryEntity book = this.bookRepository.findById(Long.valueOf(transaction.getBookId())).get();
 
             TransactionLibraryEntity newTransaction = 

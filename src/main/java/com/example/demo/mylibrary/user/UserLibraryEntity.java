@@ -1,4 +1,4 @@
-package com.example.demo.library.user;
+package com.example.demo.mylibrary.user;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.example.demo.library.transaction.TransactionLibraryEntity;
+import com.example.demo.mylibrary.transaction.TransactionLibraryEntity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 

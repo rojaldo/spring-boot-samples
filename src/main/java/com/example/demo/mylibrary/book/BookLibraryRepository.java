@@ -1,4 +1,4 @@
-package com.example.demo.library.book;
+package com.example.demo.mylibrary.book;
 
 import org.springframework.data.repository.CrudRepository;
 

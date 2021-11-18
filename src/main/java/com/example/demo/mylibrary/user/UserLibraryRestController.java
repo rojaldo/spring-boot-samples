@@ -1,7 +1,7 @@
-package com.example.demo.library.user;
+package com.example.demo.mylibrary.user;
 
-import com.example.demo.library.book.BookLibraryEntity;
-import com.example.demo.library.book.BookLibraryRepository;
+import com.example.demo.mylibrary.book.BookLibraryEntity;
+import com.example.demo.mylibrary.book.BookLibraryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

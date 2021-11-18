@@ -1,4 +1,4 @@
-package com.example.demo.library.book;
+package com.example.demo.mylibrary.book;
 
 public class BookLibraryResponse {
     private String title;
